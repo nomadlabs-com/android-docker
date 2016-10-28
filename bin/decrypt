@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+TMP_GNUPGHOME=/tmp/.gnugp-$RANDOM
+
+function cleanup {
+    rm -rf "$TMP_GNUPGHOME"
+}
+trap cleanup EXIT
+
+mkdir -p -m 600 "$TMP_GNUPGHOME"
+
+for file in "$@"
+do
+    gpg --quiet --decrypt --homedir "$TMP_GNUPGHOME" --batch --passphrase "$BUILD_SECRETS_PASSPHRASE" --output "${file%.*}" "${file}"
+done
+
