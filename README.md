@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nomadlabs-com/android-docker.svg?branch=master)](https://travis-ci.org/nomadlabs-com/android-docker)
+
 # Requirements
 
 This image relies on the Android plugin's _auto-download missing packages_ feature, which requires

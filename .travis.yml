@@ -1,0 +1,13 @@
+sudo: required
+
+services:
+  - docker
+
+script:
+  - docker build -t nomadlabs/android .
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then 
+    docker login --username "$DOCKER_USER" --password "$DOCKER_PASS";
+    docker push nomadlabs/android;
+    fi
