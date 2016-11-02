@@ -30,6 +30,7 @@ Make sure you set the encryption passphrase for your secrets in the `BUILD_SECRE
     image: nomadlabs/android
 
     before_script:
+      - mkdir -p "$ANDROID_HOME" && mv "$ANDROID_SDK_LICENSES" "$ANDROID_HOME"
       - decrypt secrets.tar.gpg another_secret.txt.gpg
       - tar -xf secrets.tar
 
@@ -59,9 +60,9 @@ Make sure you set the encryption passphrase for your secrets in the `BUILD_SECRE
 
 From your project directory run:
 
-    docker run -v "$(pwd):/root/workspace" --rm -it /bin/sh -c "./gradle build"
+    docker run -v "$(pwd):/opt/workspace" --rm -it /bin/sh -c "./gradle build"
 
 or to use/test your encrypted build secrets
 
-    docker run -e "BUILD_SECRETS_PASSPHRASE=<optional>" -v "$(pwd):/root/workspace" --rm -it /bin/sh -c "decrypt secrets.tar.gpg && tar xf secrets.tar && ./gradle build"
+    docker run -e "BUILD_SECRETS_PASSPHRASE=<optional>" -v "$(pwd):/opt/workspace" --rm -it /bin/sh -c "decrypt secrets.tar.gpg && tar xf secrets.tar && ./gradle build"
 
